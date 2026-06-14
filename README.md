@@ -29,3 +29,4 @@ AI Resume Analyzer is a web-based application that helps users evaluate and impr
 - HTML5
 - CSS3
 - JavaScript
+- AI
