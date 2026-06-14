@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="AI Resume Analyzer">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">AI Resume Analyzer</p>
+            <h1>Check your resume before you apply.</h1>
+            <p class="hero-copy">
+              Upload or paste your resume, add a job description, and get an ATS score with practical improvement tips.
+            </p>
+          </div>
+          <div class="score-pill" aria-live="polite">
+            <span id="scoreValue">--</span>
+            <small>ATS score</small>
+          </div>
+        </header>
+
+        <div class="main-grid">
+          <section class="input-panel" aria-label="Resume input">
+            <div class="panel-title">
+              <span>1</span>
+              <div>
+                <h2>Add your resume</h2>
+                <p>Text gives the most accurate results. PDF extraction is best-effort in this browser version.</p>
+              </div>
+            </div>
+
+            <label class="drop-zone" for="resumeFile" id="dropZone">
+              <input id="resumeFile" type="file" accept=".txt,.md,.pdf,.doc,.docx" />
+              <span class="upload-icon" aria-hidden="true">↑</span>
+              <strong id="fileLabel">Choose resume file</strong>
+              <small>TXT/MD can be read directly. For PDF/DOCX, paste the extracted text below if results look incomplete.</small>
+            </label>
+
+            <div class="panel-title secondary-step">
+              <span>2</span>
+              <div>
+                <h2>Set the target job</h2>
+                <p>This helps compare your resume with the role.</p>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <label class="field-label" for="jobTitle">Target role</label>
+              <input id="jobTitle" type="text" value="Frontend Developer" autocomplete="off" />
+            </div>
+
+            <div class="field-grid">
+              <label class="field-label" for="jobDescription">Job description</label>
+              <textarea
+                id="jobDescription"
+                class="short-textarea"
+                spellcheck="true"
+                placeholder="Paste the job description for skill gap and match analysis..."
+              ></textarea>
+            </div>
+
+            <div class="panel-title secondary-step">
+              <span>3</span>
+              <div>
+                <h2>Review resume text</h2>
+                <p>If upload parsing looks odd, paste clean text here.</p>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <label class="field-label" for="resumeText">Resume text</label>
+              <textarea id="resumeText" spellcheck="true" placeholder="Paste resume text here..."></textarea>
+            </div>
+            <p class="input-help" id="textQualityMessage"></p>
+
+            <button class="primary-button" id="analyzeButton" type="button">Analyze Resume</button>
+          </section>
+
+          <section class="results-panel" aria-label="Analysis results">
+            <div class="results-hero">
+              <div>
+                <p class="eyebrow">Results</p>
+                <h2>Your resume report</h2>
+                <p id="analysisIntro">Add your resume text and run the analyzer.</p>
+              </div>
+              <div class="mini-score">
+                <span id="scoreValueMirror">--</span>
+                <small>score</small>
+              </div>
+            </div>
+
+            <div class="summary-strip" aria-label="Score breakdown">
+              <div>
+                <span class="metric" id="keywordMetric">0%</span>
+                <small>Keyword match</small>
+              </div>
+              <div>
+                <span class="metric" id="matchMetric">0%</span>
+                <small>Job match</small>
+              </div>
+              <div>
+                <span class="metric" id="formatMetric">0%</span>
+                <small>ATS format</small>
+              </div>
+            </div>
+
+            <div class="analysis-block primary-result">
+              <div class="section-heading compact">
+                <h2>ATS Score Prediction</h2>
+              </div>
+              <div class="score-bar" aria-hidden="true">
+                <span id="scoreBar"></span>
+              </div>
+              <p class="score-note" id="scoreNote">Your score will appear after analysis.</p>
+            </div>
+
+            <div class="analysis-block primary-result">
+              <div class="section-heading">
+                <h2>AI Suggestions</h2>
+                <p>Start with these changes to improve your fit.</p>
+              </div>
+              <ul class="suggestion-list" id="suggestionList"></ul>
+            </div>
+
+            <div class="analysis-block">
+              <div class="section-heading compact">
+                <h2>Quick Summary</h2>
+              </div>
+              <p class="score-note" id="resumeSummary">Summary will appear after analysis.</p>
+            </div>
+
+            <div class="two-column-results">
+              <div class="analysis-block">
+                <div class="section-heading compact">
+                  <h2>Detected Skills</h2>
+                </div>
+                <div class="tag-list" id="strengthTags"></div>
+              </div>
+
+              <div class="analysis-block">
+                <div class="section-heading compact">
+                  <h2>Missing Skills</h2>
+                </div>
+                <div class="tag-list warning-tags" id="missingSkillTags"></div>
+              </div>
+            </div>
+
+            <details class="details-card" open>
+              <summary>Parsed Resume Details</summary>
+              <dl class="parsed-grid" id="parsedDetails"></dl>
+              <button class="export-btn" id="exportBtn" type="button">Export All Data</button>
+            </details>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
